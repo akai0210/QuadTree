@@ -96,10 +96,10 @@ export default class QTree<T> implements IRect {
         let _height: number = node.height;
 
         // node.childNode
-        node.childNode[QuadranType.LT]
-        node.childNode[QuadranType.RT]
-        node.childNode[QuadranType.RB]
-        node.childNode[QuadranType.LB]
+        node.childNode[QuadranType.LT] = this.CreateChidNode(node.x - _width, node.y + _height, _width, _height, node.depth + 1);
+        node.childNode[QuadranType.RT] = this.CreateChidNode(node.x + _width, node.y + _height, _width, _height, node.depth + 1);
+        node.childNode[QuadranType.RB] = this.CreateChidNode(node.x + _width, node.y - _height, _width, _height, node.depth + 1);
+        node.childNode[QuadranType.LB] = this.CreateChidNode(node.x - _width, node.y - _height, _width, _height, node.depth + 1);
 
         for (let i = node.childCount - 1; i >= 0; i--) {
             this.InsertQTree<T>(node, node.childList[i]);
@@ -108,8 +108,21 @@ export default class QTree<T> implements IRect {
         }
 
     }
-    
 
+    /**
+     * 创建子树
+     * @param x 
+     * @param y 
+     * @param wid 
+     * @param height 
+     * @param depth 
+     */
+    private CreateChidNode<T extends IRect>(x: number, y: number, wid: number, height: number, depth: number): QTree<T> {
+        const node = new QTree<T>();
+        node.depth = depth;
+        node.initRect(x, y, wid, height);
+        return node;
+    }
 
 
 
