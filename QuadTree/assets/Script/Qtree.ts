@@ -125,5 +125,25 @@ export default class QTree<T> implements IRect {
     }
 
 
+    public GetTargetQuadrantIndex<T extends IRect>(node: QTree<T>, target: T): Array<number> {
+        let halfWidth: number = node.width;
+        let halfHeight: number = node.height;
+        let min_x: number = target.x - target.width;
+        let min_y: number = target.y - target.height;
+        let max_x: number = target.x + target.width;
+        let max_y: number = target.y + target.height;
+
+        //不在当前节点范围内返回null
+        if (min_x > node.x + halfWidth || max_x < node.x - halfWidth || min_y > node.y + halfHeight || max_y < node.y - halfHeight) {
+                return null;
+        }   
+
+
+        return
+    }
+
+
+
+
 
 }
